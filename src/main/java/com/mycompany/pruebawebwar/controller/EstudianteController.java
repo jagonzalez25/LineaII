@@ -18,10 +18,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
- *
- * @author ASUS
+ * Controllador para recibir las peticiones de todo lo que tiene que ver con estudiantes
+ * @author Johans
+ * @version 1.0
+ * @since 12/08/2021
  */
 
 @Stateless
@@ -39,14 +42,19 @@ public class EstudianteController {
     @GET
     @Path("/obtenerListaPorSemestre/{semestre}/{genero}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> obtenerLista(   @PathParam("semestre") String semestre,
+    public Response obtenerLista(   @PathParam("semestre") String semestre,
                                         @PathParam("genero") String genero){
         System.out.println(semestre + " " + genero);
         List<String> listaEstudiantes = new ArrayList<>();
         listaEstudiantes.add("Johans");
         listaEstudiantes.add("Andrea");
         listaEstudiantes.add("Juan");
-        return listaEstudiantes;
+        if(!listaEstudiantes.isEmpty()){
+            return Response.status(Response.Status.OK).entity(listaEstudiantes)
+                   .header("TipoDato", "Lista de objeto").build();
+        } else {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
     }   
     
     @GET
@@ -68,9 +76,15 @@ public class EstudianteController {
     @Path("/insertarPrueba")
     @Consumes(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.APPLICATION_JSON) 
-    public void insertarPrueba(EstudianteDto estudaiante){
+    public Response insertarPrueba(EstudianteDto estudaiante){
         System.out.println("Registrado correctamente " + estudaiante.getNombre());
-        //return listaEstudiantes;
+        System.out.println("Registrado correctamente " + estudaiante.getApellido());
+        System.out.println("Registrado correctamente " + estudaiante.getCedula());
+        System.out.println("Registrado correctamente " + estudaiante.getCorreo());
+        System.out.println("Registrado correctamente " + estudaiante.getEdad());
+        System.out.println(estudaiante.toString());
+        return Response.status(Response.Status.CREATED).build();
+        //return Response.ok(this);
     }
     
     @POST

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
+ * Dto para envio .....
  * @author ASUS
  */
 public class EstudianteDto implements Serializable{
@@ -40,7 +40,11 @@ public class EstudianteDto implements Serializable{
         this.listaMateria = listaMateria;
         this.numero = numero;
     }
-
+    /**
+     * Metodo que retorna la cedula
+     * @return 
+     * @see Gson 1.7
+     */
     public String getCedula() {
         return cedula;
     }
@@ -97,6 +101,9 @@ public class EstudianteDto implements Serializable{
         this.numero = numero;
     }
     
-    
+    @Override
+    public String toString(){
+        return cedula + " " + nombre + " " + apellido + " " + edad + " " + correo; 
+    }
     
 }
