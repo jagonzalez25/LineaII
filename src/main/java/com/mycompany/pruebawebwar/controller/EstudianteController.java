@@ -6,8 +6,13 @@
 package com.mycompany.pruebawebwar.controller;
 
 import com.mycompany.pruebawebwar.Dto.EstudianteDto;
+import com.mycompany.pruebawebwar.exception.BussinessException;
+import com.mycompany.pruebawebwar.exception.ExcepionWrraper;
+import com.mycompany.pruebawebwar.service.EstudianteService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,10 +39,32 @@ public class EstudianteController {
     @GET
     @Path("/obtener")
     @Produces(MediaType.APPLICATION_JSON)
-    public int[] obtener(){
-        int[] vector = {1, 2, 3, 4, 5};
-        return vector;
+    public Response obtener(){
+          EstudianteService estService = new EstudianteService();
+          try {
+            estService.metodo();
+            return Response.status(Response.Status.OK).build();
+          } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("Entro a exception");
+            e.printStackTrace();
+            ExcepionWrraper wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
+                    "/estudiantes/obtener");
+     
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(wrraper).build();
+          }
     }
+    
+    @GET
+    @Path("/obtener2/{indice}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtener2(@PathParam("indice") int indice) 
+            throws BussinessException, ArrayIndexOutOfBoundsException, Exception{
+          EstudianteService estService = new EstudianteService();
+          estService.metodo2(indice);
+          return Response.status(Response.Status.OK).build();
+    }   
+    
+    
     
     @GET
     @Path("/obtenerListaPorSemestre/{semestre}/{genero}")
