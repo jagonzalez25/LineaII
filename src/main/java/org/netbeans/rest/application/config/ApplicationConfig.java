@@ -29,7 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.mycompany.pruebawebwar.controller.EstudianteController.class);
+        resources.add(com.mycompany.pruebawebwar.controller.PruebaController.class);
         resources.add(com.mycompany.pruebawebwar.exception.ExceptionHandler.class);
     }
     

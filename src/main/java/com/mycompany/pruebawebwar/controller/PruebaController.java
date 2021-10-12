@@ -5,15 +5,18 @@
  */
 package com.mycompany.pruebawebwar.controller;
 
-import com.mycompany.pruebawebwar.Dto.EstudianteDto;
-import com.mycompany.pruebawebwar.exception.BussinessException;
+import co.edu.unicundi.pruebaejbjar.service.IEstudianteService;
+import co.edu.unicundi.pruebaejbjar.exception.BussinessException;
 import com.mycompany.pruebawebwar.exception.ExcepionWrraper;
-import com.mycompany.pruebawebwar.service.EstudianteService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,36 +36,39 @@ import javax.ws.rs.core.Response;
  */
 
 @Stateless
-@Path("/estudiantes")
-public class EstudianteController {
+@Path("/pruebas")
+public class PruebaController {
     
-    @GET
+    @EJB
+    private IEstudianteService service;
+    
+    /*@GET
     @Path("/obtener")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtener(){
-          EstudianteService estService = new EstudianteService();
-          try {
-            estService.metodo();
-            return Response.status(Response.Status.OK).build();
-          } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("Entro a exception");
-            e.printStackTrace();
-            ExcepionWrraper wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
-                    "/estudiantes/obtener");
-     
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(wrraper).build();
-          }
+            EstudianteService estService = new EstudianteService();
+            try {
+              estService.metodo();
+              return Response.status(Response.Status.OK).build();
+            } catch(ArrayIndexOutOfBoundsException e) {
+              System.out.println("Entro a exception");
+              e.printStackTrace();
+              ExcepionWrraper wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
+                      "/estudiantes/obtener");
+
+              return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(wrraper).build();
+            }
     }
     
     @GET
     @Path("/obtener2/{indice}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtener2(@PathParam("indice") int indice) 
+    public Response obtener2(@Min(3) @Max(12) @PathParam("indice") int indice) 
             throws BussinessException, ArrayIndexOutOfBoundsException, Exception{
           EstudianteService estService = new EstudianteService();
           estService.metodo2(indice);
           return Response.status(Response.Status.OK).build();
-    }   
+    }   */
     
     
     
@@ -84,7 +90,7 @@ public class EstudianteController {
         }
     }   
     
-    @GET
+   /* @GET
     @Path("/obtenerGson")
     @Produces(MediaType.APPLICATION_JSON)
     public EstudianteDto obtenerGson(){
@@ -95,11 +101,11 @@ public class EstudianteController {
         int[] vector = {1, 2, 3, 4};
         EstudianteDto ob = new EstudianteDto("1070", "Johans",  "Gonzalez", 25, "johans-123@hotmail.com", listaMateria, vector);
         return ob;
-    }   
+    } */  
     
     
     
-    @POST
+    /*@POST
     @Path("/insertarPrueba")
     @Consumes(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.APPLICATION_JSON) 
@@ -118,10 +124,12 @@ public class EstudianteController {
     @Path("/insertar")
     @Consumes(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.APPLICATION_JSON) 
-    public void insertar(EstudianteDto estudaiante){
+    public Response insertar( EstudianteDto estudaiante){
         System.out.println("Registrado correctamente"  + estudaiante.getNombre());
+        
+         return Response.status(Response.Status.CREATED).build();
         //return listaEstudiantes;
-    }   
+    }   */
     
     @PUT
     @Path("/editar")
@@ -141,4 +149,15 @@ public class EstudianteController {
     public void elminarPorId(   @PathParam("id") int id){
         System.out.println(id);
     }     
+    
+    
+    @GET
+    @Path("/obtenerEJB")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerEJB(){
+            
+        service.listar();
+        return Response.status(Response.Status.OK).build();
+    }    
+    
 }
