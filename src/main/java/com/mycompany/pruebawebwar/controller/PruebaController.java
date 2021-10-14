@@ -5,7 +5,6 @@
  */
 package com.mycompany.pruebawebwar.controller;
 
-import co.edu.unicundi.pruebaejbjar.service.IEstudianteService;
 import co.edu.unicundi.pruebaejbjar.exception.BussinessException;
 import com.mycompany.pruebawebwar.exception.ExcepionWrraper;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import co.edu.unicundi.pruebaejbjar.service.IAlumnoService;
 
 /**
  * Controllador para recibir las peticiones de todo lo que tiene que ver con estudiantes
@@ -40,7 +40,7 @@ import javax.ws.rs.core.Response;
 public class PruebaController {
     
     @EJB
-    private IEstudianteService service;
+    private IAlumnoService service;
     
     /*@GET
     @Path("/obtener")
