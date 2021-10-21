@@ -6,6 +6,7 @@
 package com.mycompany.pruebawebwar.exception;
 
 import co.edu.unicundi.pruebaejbjar.exception.BussinessException;
+import co.edu.unicundi.pruebaejbjar.exception.ResourceNotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -25,6 +26,10 @@ public class ExceptionHandler implements ExceptionMapper<Exception>{
              wrraper = new ExcepionWrraper("400", "BAD_REQUEST", ex.getMessage(),
                     "/estudiantes/obtener");    
             return Response.status(Response.Status.BAD_REQUEST).entity(wrraper).build();
+        } else if(ex instanceof ResourceNotFoundException){
+            wrraper = new ExcepionWrraper("404", "NOT_FOUND", ex.getMessage(),
+                    "/estudiantes/obtener");    
+             return Response.status(Response.Status.NOT_FOUND).entity(wrraper).build();
         } else {
               wrraper = new ExcepionWrraper("500", "INTERNAL_SERVER_ERROR", "",
                     "/estudiantes/obtener");    
