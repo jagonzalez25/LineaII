@@ -32,8 +32,10 @@ public class ApplicationConfig extends Application {
         resources.add(com.mycompany.pruebawebwar.controller.AlumnoController.class);
         resources.add(com.mycompany.pruebawebwar.controller.AutorController.class);
         resources.add(com.mycompany.pruebawebwar.controller.LibroController.class);
+        resources.add(com.mycompany.pruebawebwar.controller.LoginController.class);
         resources.add(com.mycompany.pruebawebwar.controller.PruebaController.class);
         resources.add(com.mycompany.pruebawebwar.exception.ExceptionHandler.class);
+        resources.add(org.netbeans.rest.application.config.Interceptor.class);
     }
     
 }
