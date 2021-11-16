@@ -40,7 +40,7 @@ public class AlumnoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtener() {
           List<Alumno> listALumno = service.listar();
-          return Response.status(Response.Status.OK).entity(listALumno).build();
+          return Response.status(Response.Status.OK).entity(listALumno).build();    
     }       
     
     @GET
