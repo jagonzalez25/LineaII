@@ -36,6 +36,9 @@ public class Interceptor implements ContainerRequestFilter{
         if(url.contains("/auth/token")) {
             return;
         }
+        if(url.contains("/autores/")) {
+            return;
+        }
         /*if(url.contains("/contectenos/solicitud")) {
             return;
         }*/

@@ -5,10 +5,13 @@
  */
 package com.mycompany.pruebawebwar.controller;
 
+import co.edu.unicundi.pruebaejbjar.dto.AutorEditorialDto;
 import co.edu.unicundi.pruebaejbjar.entity.Alumno;
 import co.edu.unicundi.pruebaejbjar.entity.Autor;
+import co.edu.unicundi.pruebaejbjar.entity.AutorEditorial;
 import co.edu.unicundi.pruebaejbjar.exception.BussinessException;
 import co.edu.unicundi.pruebaejbjar.exception.ResourceNotFoundException;
+import co.edu.unicundi.pruebaejbjar.service.IAutorEditorialService;
 import co.edu.unicundi.pruebaejbjar.service.IAutorService;
 import java.util.List;
 import javax.ejb.EJB;
@@ -35,6 +38,9 @@ public class AutorController {
     
     @EJB
     private IAutorService service;
+    
+    @EJB
+    private IAutorEditorialService serviceAutorEditorial;
     
     @GET
     @Path("/obtener")
@@ -76,5 +82,22 @@ public class AutorController {
     public Response eliminar(@PathParam("id") Integer id) throws ResourceNotFoundException {
           service.eliminar(id);
           return Response.status(Response.Status.NO_CONTENT).build();
-    }      
+    }     
+    
+    @POST
+    @Path("/asociarEditorial")
+    @Consumes(MediaType.APPLICATION_JSON)
+    //@Produces(MediaType.APPLICATION_JSON) 
+    public Response asociarEditorial(@Valid AutorEditorial autorEditorial){
+        this.serviceAutorEditorial.guardar(autorEditorial);
+        return Response.status(Response.Status.CREATED).build();
+    }
+    
+    @GET
+    @Path("/obtenerEditorial/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerEditorial(@PathParam("id") Integer id) throws ResourceNotFoundException {
+          List<AutorEditorialDto> autorEditorial = this.serviceAutorEditorial.listarPorAutorId(id);
+          return Response.status(Response.Status.OK).entity(autorEditorial).build();
+    } 
 }
